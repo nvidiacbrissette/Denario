@@ -7,6 +7,9 @@ from tqdm import tqdm
 import asyncio
 from functools import partial
 import fitz  # PyMuPDF
+from ..cmbagent_compat import patch_autogen_for_cmbagent
+
+patch_autogen_for_cmbagent()
 import cmbagent
 
 from .parameters import GraphState

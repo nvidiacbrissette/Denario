@@ -62,7 +62,7 @@ class LITERATURE(TypedDict):
     papers: str
     next_agent: str
     messages: str #this keeps tracks of all previous messages
-    max_iterations: 7 #maximum number of iterations to perform when searching for papers
+    max_iterations: int #maximum number of iterations to perform when searching for papers
     num_papers: int #controls the number of papers found by semantic scholar
     
 # Graph state class

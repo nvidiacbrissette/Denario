@@ -1,10 +1,13 @@
 import re
 from pathlib import Path
+from .cmbagent_compat import patch_autogen_for_cmbagent
+
+patch_autogen_for_cmbagent()
 import cmbagent
 
 from .key_manager import KeyManager
 from .prompts.experiment import experiment_planner_prompt, experiment_engineer_prompt, experiment_researcher_prompt
-from .utils import create_work_dir, get_task_result
+from .utils import create_work_dir, get_task_result, maybe_nim_config
 
 class Experiment:
     """
@@ -84,10 +87,10 @@ class Experiment:
                             max_n_attempts = self.max_n_attempts,
                             max_plan_steps = self.max_n_steps,
                             max_rounds_control = 500,
-                            engineer_model = self.engineer_model,
-                            researcher_model = self.researcher_model,
-                            planner_model = self.planner_model,
-                            plan_reviewer_model = self.plan_reviewer_model,
+                            engineer_model = maybe_nim_config(self.engineer_model),
+                            researcher_model = maybe_nim_config(self.researcher_model),
+                            planner_model = maybe_nim_config(self.planner_model),
+                            plan_reviewer_model = maybe_nim_config(self.plan_reviewer_model),
                             plan_instructions=self.planner_append_instructions,
                             researcher_instructions=self.researcher_append_instructions,
                             engineer_instructions=self.engineer_append_instructions,
@@ -95,8 +98,8 @@ class Experiment:
                             api_keys = self.api_keys,
                             restart_at_step = self.restart_at_step,
                             hardware_constraints = self.hardware_constraints,
-                            default_llm_model = self.orchestration_model,
-                            default_formatter_model = self.formatter_model
+                            default_llm_model = maybe_nim_config(self.orchestration_model),
+                            default_formatter_model = maybe_nim_config(self.formatter_model)
                             )
         chat_history = results['chat_history']
         final_context = results['final_context']

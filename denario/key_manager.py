@@ -6,6 +6,7 @@ class KeyManager(BaseModel):
     ANTHROPIC: str | None = ""
     GEMINI: str | None = ""
     OPENAI: str | None = ""
+    NVIDIA: str | None = ""
     PERPLEXITY: str | None = ""
     SEMANTIC_SCHOLAR: str | None = ""
 
@@ -16,6 +17,7 @@ class KeyManager(BaseModel):
         self.OPENAI           = os.getenv("OPENAI_API_KEY")
         self.GEMINI           = os.getenv("GOOGLE_API_KEY")
         self.ANTHROPIC        = os.getenv("ANTHROPIC_API_KEY") #not strictly needed
+        self.NVIDIA           = os.getenv("NVIDIA_API_KEY") #for NVIDIA cloud API; not needed for local NIM
         self.PERPLEXITY       = os.getenv("PERPLEXITY_API_KEY") #only for citations
         self.SEMANTIC_SCHOLAR = os.getenv("SEMANTIC_SCHOLAR_KEY") #only for fast semantic scholar
 

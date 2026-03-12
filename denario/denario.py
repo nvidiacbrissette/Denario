@@ -5,6 +5,9 @@ import os
 import shutil
 from pathlib import Path
 from PIL import Image 
+from .cmbagent_compat import patch_autogen_for_cmbagent
+
+patch_autogen_for_cmbagent()
 import cmbagent
 
 from .config import DEFAUL_PROJECT_NAME, INPUT_FILES, PLOTS_FOLDER, DESCRIPTION_FILE, IDEA_FILE, METHOD_FILE, RESULTS_FILE, LITERATURE_FILE
@@ -18,7 +21,13 @@ from .experiment import Experiment
 from .paper_agents.agents_graph import build_graph
 from .utils import llm_parser, input_check, check_file_paths, in_notebook
 from .langgraph_agents.agents_graph import build_lg_graph
-from cmbagent import preprocess_task
+
+try:
+    from cmbagent import preprocess_task
+except ImportError:
+    def preprocess_task(text: str, *args, **kwargs) -> str:
+        """Fallback when cmbagent lacks preprocess_task in older releases."""
+        return text
 
 class Denario:
     """

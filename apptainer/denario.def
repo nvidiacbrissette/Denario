@@ -1,0 +1,57 @@
+Bootstrap: docker
+From: python:3.12-slim
+
+%labels
+    Author Denario
+    Description Denario container for Flatiron compute cluster with NIM endpoint support
+
+%environment
+    export DEBIAN_FRONTEND=noninteractive
+    export LC_ALL=C
+
+%files
+    . /app
+
+%post
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        texlive-latex-base \
+        texlive-latex-recommended \
+        texlive-latex-extra \
+        texlive-fonts-recommended \
+        texlive-fonts-extra \
+        texlive-xetex \
+        texlive-science \
+        texlive-publishers \
+        texlive-plain-generic \
+        fonts-freefont-ttf \
+        fonts-dejavu \
+        fonts-noto \
+        fonts-liberation \
+        fonts-inconsolata \
+        fonts-texgyre \
+        build-essential \
+        git \
+        curl \
+        ca-certificates && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+    cd /app
+    pip install --no-cache-dir -e .
+
+%runscript
+    exec python "$@"
+
+%help
+    Denario container for the Flatiron compute cluster.
+
+    Build (from the repo root):
+        apptainer build --fakeroot denario.sif apptainer/denario.def
+
+    Run a workflow:
+        apptainer exec --bind ./GW231123:/app/GW231123 denario.sif \
+            python /app/examples/nemotron-workflow.py
+
+    The NIM endpoint at localhost:8000 is accessible by default since
+    Apptainer shares the host network namespace.

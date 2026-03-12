@@ -1,10 +1,13 @@
 import re
 from pathlib import Path
+from .cmbagent_compat import patch_autogen_for_cmbagent
+
+patch_autogen_for_cmbagent()
 import cmbagent
 
 from .key_manager import KeyManager
 from .prompts.idea import idea_planner_prompt
-from .utils import create_work_dir, get_task_result
+from .utils import create_work_dir, get_task_result, maybe_nim_config
 
 class Idea:
     """
@@ -61,15 +64,15 @@ class Idea:
         results = cmbagent.planning_and_control_context_carryover(data_description,
                               n_plan_reviews = 1,
                               max_plan_steps = 6,
-                              idea_maker_model = self.idea_maker_model,
-                              idea_hater_model = self.idea_hater_model,
+                              idea_maker_model = maybe_nim_config(self.idea_maker_model),
+                              idea_hater_model = maybe_nim_config(self.idea_hater_model),
                               plan_instructions=self.planner_append_instructions,
-                              planner_model=self.planner_model,
-                              plan_reviewer_model=self.plan_reviewer_model,
+                              planner_model=maybe_nim_config(self.planner_model),
+                              plan_reviewer_model=maybe_nim_config(self.plan_reviewer_model),
                               work_dir = self.idea_dir,
                               api_keys = self.api_keys,
-                              default_llm_model = self.orchestration_model,
-                              default_formatter_model = self.formatter_model
+                              default_llm_model = maybe_nim_config(self.orchestration_model),
+                              default_formatter_model = maybe_nim_config(self.formatter_model)
                              )
 
         chat_history = results['chat_history']

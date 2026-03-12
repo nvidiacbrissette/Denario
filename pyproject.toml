@@ -11,19 +11,20 @@ maintainers = [
   { name = "Denario", email = "denario.astropilot.ai@gmail.com" },
 ]
 readme = "README.md"
-requires-python = ">=3.12,<3.14"
+requires-python = ">=3.10,<3.14"
 license = { text = "GPLv3" }
 keywords = ["machine learning","agent","biology","chemistry","cosmology","material sciences","llm"]
 dependencies = [
   "langchain-google-genai",
   "langchain-anthropic>=0.3.10",
   "langchain-openai>=0.3.12",
+  "langchain-nvidia-ai-endpoints",
   "langgraph>=0.3.25",
   "google-cloud-aiplatform",
   "google-ai-generativelanguage>=0.6.17",
   "flatbuffers>=24.12.23",
   "filelock>=3.17.0",
-  "cmbagent>=0.0.1post63",
+  "cmbagent>=0.0.1.post30",
   "pymupdf",
   "pillow",
   "jsonschema",

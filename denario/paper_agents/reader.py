@@ -7,10 +7,12 @@ from langchain_core.runnables import RunnableConfig
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
+from langchain_nvidia import ChatNVIDIA
 
 from .parameters import GraphState
 from .latex_presets import journal_dict
 from ..config import INPUT_FILES, IDEA_FILE, METHOD_FILE, RESULTS_FILE, PAPER_FOLDER, PLOTS_FOLDER, LaTeX_DIR
+from ..utils import get_nvidia_base_url, get_nvidia_api_key, resolve_nvidia_model_name
 
 
 def preprocess_node(state: GraphState, config: RunnableConfig):
@@ -33,6 +35,13 @@ def preprocess_node(state: GraphState, config: RunnableConfig):
         state['llm']['llm'] = ChatAnthropic(model=state['llm']['model'],
                                             temperature=state['llm']['temperature'],
                                             anthropic_api_key=state["keys"].ANTHROPIC)
+    
+    elif 'nvidia' in state['llm']['model']:
+        resolved_model = resolve_nvidia_model_name(state['llm']['model'])
+        state['llm']['llm'] = ChatNVIDIA(base_url=get_nvidia_base_url(),
+                                         api_key=get_nvidia_api_key(),
+                                         model=resolved_model,
+                                         temperature=state['llm']['temperature'])
     
     # set the tokens usage
     state['tokens'] = {'ti': 0, 'to': 0, 'i': 0, 'o': 0}

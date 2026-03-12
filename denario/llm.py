@@ -80,6 +80,11 @@ claude41opus = LLM(name="claude-opus-4-1-20250805",
                    temperature=0)
 """`claude-4.1-Opus` model."""
 
+nvidianemotron3nano = LLM(name='nvidia/nemotron-3-nano',
+                          max_output_tokens=128000,
+                          temperature=0)
+"""`NVIDIA Nemotron 3 30B` model."""
+
 models : Dict[str, LLM] = {
                             "gemini-2.0-flash" : gemini20flash,
                             "gemini-2.5-flash" : gemini25flash,
@@ -95,5 +100,7 @@ models : Dict[str, LLM] = {
                             "claude-3.7-sonnet" : claude37sonnet,
                             "claude-4-opus" : claude4opus,
                             "claude-4.1-opus" : claude41opus,
+                            "nvidia-nemotron-nano" : nvidianemotron3nano,
+                            "nemotron-nano" : nvidianemotron3nano,
                            }
 """Dictionary with the available models."""

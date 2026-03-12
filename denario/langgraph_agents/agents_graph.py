@@ -29,7 +29,7 @@ def build_lg_graph(mermaid_diagram=False):
     builder.add_node("novelty",            novelty_decider)
     builder.add_node("semantic_scholar",   semantic_scholar)
     builder.add_node("literature_summary", literature_summary)
-    builder.add_node("referee",            referee)
+    builder.add_node("referee_node",       referee)
     
     # Define edges: these determine how the control flow moves
     builder.add_edge(START,                          "preprocess_node")
@@ -40,7 +40,7 @@ def build_lg_graph(mermaid_diagram=False):
     builder.add_conditional_edges("novelty",         literature_router)
     builder.add_edge("semantic_scholar",             "novelty")
     builder.add_edge("literature_summary",           END)
-    builder.add_edge("referee",                      END)
+    builder.add_edge("referee_node",                 END)
     
 
     memory = MemorySaver()
