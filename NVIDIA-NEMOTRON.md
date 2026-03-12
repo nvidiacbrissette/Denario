@@ -100,6 +100,41 @@ Behavior:
   - Optional explicit model ID override (highest precedence outside forced API-key path).
 
 
+## Environment Setup (Required)
+
+If you see `No module named denario`, install this repository into a virtual environment first.
+Use Python 3.11+ (Python 3.12 recommended).
+
+From the repo root:
+
+```bash
+bash setup_env.sh
+```
+
+Optional custom virtual environment name:
+
+```bash
+bash setup_env.sh Denario_env
+```
+
+Activate the environment:
+
+```bash
+source .venv/bin/activate
+# or:
+source Denario_env/bin/activate
+```
+
+Verify the install:
+
+```bash
+python -c "import denario; print('denario import OK')"
+```
+
+Base setup installs core dependencies from `requirements.txt` and then installs Denario in editable mode.
+Optional FutureHouse dependencies are listed in `requirements-optional.txt` and may be skipped if your index does not host them.
+
+
 ## Quick Start Commands
 
 ### Hosted Endpoint
