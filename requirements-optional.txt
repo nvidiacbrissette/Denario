@@ -1,5 +1,0 @@
-# Optional dependencies not required for core Nemotron workflow.
-# Install with:
-#   pip install -r requirements-optional.txt
-
-futurehouse-client
