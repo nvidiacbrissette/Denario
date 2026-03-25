@@ -94,7 +94,8 @@ Now we can run Denario! But wait! We need to make a venv and get required packag
 
 ```
 cd Denario
-sh setup_env.sh
+pip install -e .
+pip install mistralai==1.12.4
 ```
 
 This takes a bit of time.
