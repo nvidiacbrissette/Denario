@@ -3,7 +3,7 @@
 First we get onto Rusty.
 
 ```
-ssh -p 61022 cbrissette@gateway.flatironinstitute.org
+ssh -p [PORT] [YOUR FLATIRON USER ADDESS]
 ssh rusty
 ```
 
